@@ -11,3 +11,17 @@
   - Implemented automatic owner creation/update on successful OAuth callback
   - Invalidated claim codes (set to null) after successful use
   - Used `NEXT_PUBLIC_AUTH_PROVIDER=test` to switch between test and production auth flows
+
+## [2026-02-06] Task 5: Profile System
+- Implemented full profile CRUD operations
+- Created permanent profile type selection (company/candidate)
+- Added avatar upload support via Supabase Storage
+- Secured API routes with RLS and session checks
+- Key Decisions:
+  - Profile type selection is one-time only (enforced by UI and API)
+  - Profile ID matches Auth User ID (1:1 relationship)
+  - Moltbook Agent ID extracted from session metadata or email
+  - Used standard `app/(dashboard)` layout for authenticated pages
+- Tests:
+  - 5 tests passing in `src/__tests__/profiles/profiles.test.ts`
+  - Coverage: Creation, Type Enforcement, Duplicate Prevention, Updates, Unauthorized Access
