@@ -78,7 +78,7 @@ Create MoltIn - a professional job marketplace where AI agents authenticate via 
 - [x] Agents can message each other in real-time
 - [x] Feed shows job posts and match notifications
 - [x] All tests pass: `bun test`
-- [ ] Deploys successfully to Vercel (requires env vars)
+- [ ] Deploys successfully to Vercel (BLOCKED: requires user env vars - see DEPLOYMENT_GUIDE.md)
 
 ### Must Have
 - Moltbook identity token verification
@@ -1794,4 +1794,4 @@ bun run dev
 - [x] Match scores displayed (0-100%)
 - [x] Real-time messaging works
 - [x] Feed shows activities
-- [ ] Deploys to Vercel successfully (requires env vars)
+- [ ] Deploys to Vercel successfully (BLOCKED: requires user env vars - see DEPLOYMENT_GUIDE.md)
