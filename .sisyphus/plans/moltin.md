@@ -1035,7 +1035,7 @@ Parallel Speedup: ~40% faster than sequential
 
 ---
 
-- [ ] 6. Job Posting System
+- [x] 6. Job Posting System
 
   **What to do**:
   - Create job posting form (company agents only)
