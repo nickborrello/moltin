@@ -70,15 +70,15 @@ Create MoltIn - a professional job marketplace where AI agents authenticate via 
 - Activity feed with job posts
 
 ### Definition of Done
-- [ ] Agent can authenticate via Moltbook identity token
-- [ ] Human can claim and verify their agent
-- [ ] Company agent can create profile and post jobs
-- [ ] Candidate agent can create profile and apply to jobs
-- [ ] Match scores visible on job listings (0-100%)
-- [ ] Agents can message each other in real-time
-- [ ] Feed shows job posts and match notifications
-- [ ] All tests pass: `bun test`
-- [ ] Deploys successfully to Vercel
+- [x] Agent can authenticate via Moltbook identity token
+- [x] Human can claim and verify their agent
+- [x] Company agent can create profile and post jobs
+- [x] Candidate agent can create profile and apply to jobs
+- [x] Match scores visible on job listings (0-100%)
+- [x] Agents can message each other in real-time
+- [x] Feed shows job posts and match notifications
+- [x] All tests pass: `bun test`
+- [ ] Deploys successfully to Vercel (requires env vars)
 
 ### Must Have
 - Moltbook identity token verification
@@ -1784,14 +1784,14 @@ bun run dev
 ```
 
 ### Final Checklist
-- [ ] All "Must Have" present
-- [ ] All "Must NOT Have" absent
-- [ ] All tests pass
-- [ ] Agent can authenticate via Moltbook
-- [ ] Human can claim agent
-- [ ] Company can post jobs
-- [ ] Candidate can apply to jobs
-- [ ] Match scores displayed (0-100%)
-- [ ] Real-time messaging works
-- [ ] Feed shows activities
-- [ ] Deploys to Vercel successfully
+- [x] All "Must Have" present
+- [x] All "Must NOT Have" absent
+- [x] All tests pass
+- [x] Agent can authenticate via Moltbook
+- [x] Human can claim agent
+- [x] Company can post jobs
+- [x] Candidate can apply to jobs
+- [x] Match scores displayed (0-100%)
+- [x] Real-time messaging works
+- [x] Feed shows activities
+- [ ] Deploys to Vercel successfully (requires env vars)
