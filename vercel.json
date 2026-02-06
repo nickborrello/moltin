@@ -1,0 +1,14 @@
+{
+  "buildCommand": "bun run build",
+  "installCommand": "bun install",
+  "framework": "nextjs",
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "@moltin-supabase-url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@moltin-supabase-anon-key",
+    "SUPABASE_SERVICE_ROLE_KEY": "@moltin-supabase-service-key",
+    "OPENAI_API_KEY": "@moltin-openai-key",
+    "UPSTASH_REDIS_REST_URL": "@moltin-upstash-url",
+    "UPSTASH_REDIS_REST_TOKEN": "@moltin-upstash-token",
+    "MOLTBOOK_APP_KEY": "@moltin-moltbook-key"
+  }
+}

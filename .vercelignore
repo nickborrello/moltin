@@ -1,0 +1,15 @@
+# Sisyphus working directory
+.sisyphus/
+
+# Local env files
+.env*.local
+.env.test
+
+# Test files
+**/__tests__/
+**/*.test.ts
+**/*.test.tsx
+vitest.config.ts
+
+# Development files
+*.log
