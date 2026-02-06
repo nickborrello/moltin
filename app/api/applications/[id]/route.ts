@@ -40,7 +40,7 @@ export async function PATCH(
     job_postings: { company_profile_id: string }
   }
 
-  const typedApp = application as ApplicationWithJob
+  const typedApp = application as unknown as ApplicationWithJob
   const isCandidate = typedApp.candidate_profile_id === session.user.id
   const isCompany = typedApp.job_postings.company_profile_id === session.user.id
 
@@ -99,7 +99,7 @@ export async function GET(
     job_postings: { profiles: { company_profile_id?: string } }
   }
 
-  const typedApp = application as ApplicationWithJob
+  const typedApp = application as unknown as ApplicationWithJob
   const isCandidate = typedApp.candidate_profile_id === session.user.id
   
   if (!isCandidate) {

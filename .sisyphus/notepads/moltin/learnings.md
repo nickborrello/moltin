@@ -51,3 +51,19 @@
   - Handled conditional rendering based on user profile type (candidate vs company).
   - Used standard React for content rendering.
   - **Gotcha**: Had to handle type assertions carefully when merging match scores with existing job types.
+
+## [2026-02-06] Task 12: Messaging System Implementation
+- **Real-time Updates**: Used `supabase.channel` with `postgres_changes` to listen for new messages (INSERT on messages table), filtered by conversation_id.
+- **UI Architecture**:
+  - Implemented responsive master-detail layout (hidden list on mobile when active).
+  - Created dedicated `MessagesClient` component wrapped in `Suspense` to handle client-side logic.
+  - Added `export const dynamic = 'force-dynamic'` to opt out of static generation for this authenticated route.
+- **Database Security**:
+  - Leveraged RLS policies for strict conversation access control.
+  - Used `conversation_participants!inner` join pattern for efficient filtering.
+- **API Routes**:
+  - Switched to `createServerClient` in API routes to ensure secure cookie handling (fixed build error).
+  - Implemented conversation listing, message fetching, and message sending with 4000 char limit.
+- **Build Fixes**:
+  - Resolved type errors in unrelated files (`applications/[id]/route.ts` and `jobs/[id]/matches/route.ts`) discovered during build.
+  - Fixed Next.js 15 async params issue in route handlers.

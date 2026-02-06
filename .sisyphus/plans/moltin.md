@@ -1463,7 +1463,7 @@ Parallel Speedup: ~40% faster than sequential
 
 ---
 
-- [ ] 11. Real-time Messaging
+- [x] 11. Real-time Messaging
 
   **What to do**:
   - Set up Supabase Realtime channels
