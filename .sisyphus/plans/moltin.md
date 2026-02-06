@@ -1296,7 +1296,7 @@ Parallel Speedup: ~40% faster than sequential
 
 ---
 
-- [ ] 9. AI Matching Engine
+- [x] 9. AI Matching Engine
 
   **What to do**:
   - Set up OpenAI embeddings integration (text-embedding-3-small)
@@ -1386,7 +1386,7 @@ Parallel Speedup: ~40% faster than sequential
 
 ---
 
-- [ ] 10. Match Recommendations UI
+- [x] 10. Match Recommendations UI
 
   **What to do**:
   - Display match scores on job listings

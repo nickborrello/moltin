@@ -1,27 +1,53 @@
-## [2026-02-06] Task 4: Human Dashboard & Claiming
-- Implemented `app/(auth)/claim/[code]/page.tsx` for verifying agent claims
-- Implemented `app/(dashboard)/owner/page.tsx` for human owners to view their agents
-- Implemented `app/api/claim/verify/route.ts` for OAuth initiation
-- Implemented `app/api/claim/callback/route.ts` for OAuth callback handling
-- Created `src/__tests__/dashboard/owner.test.ts` for dashboard logic verification
-- Tests passed: 2 tests passing in `owner.test.ts`
+## [2026-02-06] Task 7: Profile Browsing & Filtering
+- Implemented browse page at `app/(dashboard)/browse/page.tsx`
+- Features:
+  - Filter by profile type (company/candidate)
+  - Search by name, headline, bio (ilike)
+  - Pagination (20 per page) with prev/next controls
+  - Glassy UI panel for filters
+  - Responsive grid layout for profile cards
 - Key Decisions:
-  - Added `test_mode` support in API routes to bypass real OAuth in tests/dev
-  - Used `@ts-ignore` for Supabase join results in `page.tsx` due to complex typing
-  - Implemented automatic owner creation/update on successful OAuth callback
-  - Invalidated claim codes (set to null) after successful use
-  - Used `NEXT_PUBLIC_AUTH_PROVIDER=test` to switch between test and production auth flows
-
-## [2026-02-06] Task 5: Profile System
-- Implemented full profile CRUD operations
-- Created permanent profile type selection (company/candidate)
-- Added avatar upload support via Supabase Storage
-- Secured API routes with RLS and session checks
-- Key Decisions:
-  - Profile type selection is one-time only (enforced by UI and API)
-  - Profile ID matches Auth User ID (1:1 relationship)
-  - Moltbook Agent ID extracted from session metadata or email
-  - Used standard `app/(dashboard)` layout for authenticated pages
+  - Used server-side searchParams for all filtering state (URL-driven)
+  - Implemented optimistic UI with skeletal loading not needed due to server components
+  - Used `count: 'exact'` in Supabase query for accurate pagination
+  - Added visual flair with hover animations and gradient reveals
+  - Fallback avatar with initial for missing images
 - Tests:
-  - 5 tests passing in `src/__tests__/profiles/profiles.test.ts`
-  - Coverage: Creation, Type Enforcement, Duplicate Prevention, Updates, Unauthorized Access
+  - 3 tests passing in `src/__tests__/browse/browse.test.ts`
+  - Validated basic test suite structure and parameter handling logic
+
+## [2026-02-06] Task 8: Job Application System
+- Implemented complete job application system:
+  - Application form: `app/(dashboard)/jobs/[id]/apply/page.tsx` (client component)
+  - Applications list: `app/(dashboard)/applications/page.tsx` (server component)
+- API Routes:
+  - `POST /api/jobs/[id]/apply` - Submit application (candidate only)
+  - `GET /api/applications` - List own applications
+  - `GET /api/jobs/[id]/applications` - List job's applications (company owner only)
+  - `PATCH /api/applications/[id]` - Update status (candidate or company owner)
+  - `GET /api/applications/[id]` - Get single application
+- Key Features:
+  - Rate limiting: 50 applications/day via `applicationRateLimit` from lib/ratelimit.ts
+  - Duplicate prevention: Checks for existing application before insert (409 Conflict)
+  - Profile type enforcement: Only candidates can apply (403 Forbidden for companies)
+  - Authorization: Companies can only view/update applications for their own jobs
+  - Status workflow: submitted → reviewed → interviewing → offered/rejected
+- Patterns:
+  - Next.js 15 async params: `{ params }: { params: Promise<{ id: string }> }`
+  - Typed Supabase joins for nested relations (job_postings → profiles)
+  - Status colors mapped with conditional Tailwind classes
+- Tests:
+  - 13 tests passing in `src/__tests__/applications/applications.test.ts`
+  - Covers: candidate apply, company reject, duplicate prevention, rate limiting, authorization
+
+## [2026-02-06] Task 10: Create Matching UI
+- **Match Score Component**: Created `components/matching/match-score.tsx` with color coding based on score thresholds (green >80%, blue >60%, yellow >40%).
+- **Job Listing Integration**: Updated `app/(dashboard)/jobs/page.tsx` to fetch and display match scores for candidate users. Added sorting by "Best Match".
+- **Job Detail Page**: Updated `app/(dashboard)/jobs/[id]/page.tsx` to show "Top Candidate Matches" section for job owners (companies).
+- **Candidate Dashboard**: Created `app/(dashboard)/dashboard/page.tsx` displaying "Recommended Jobs" and "Recent Applications".
+- **Testing**: Added basic existence tests in `src/__tests__/matching/ui.test.ts`.
+- **Key Learnings**:
+  - Used `supabase.rpc` to call matching functions `match_jobs_to_candidate` and `match_candidates_to_job`.
+  - Handled conditional rendering based on user profile type (candidate vs company).
+  - Used standard React for content rendering.
+  - **Gotcha**: Had to handle type assertions carefully when merging match scores with existing job types.
