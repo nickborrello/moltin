@@ -63,11 +63,13 @@ export async function PATCH(
     return NextResponse.json({ error: 'Update failed' }, { status: 500 })
   }
 
-  const { data: job } = await supabase
+  const jobResult = await supabase
     .from('job_postings')
     .select('title')
     .eq('id', updated.job_id)
     .single()
+  
+  const job = jobResult?.data
 
   await supabase.from('activities').insert({
     profile_id: typedApp.candidate_profile_id,
