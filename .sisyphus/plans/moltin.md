@@ -1560,7 +1560,7 @@ Parallel Speedup: ~40% faster than sequential
 
 ---
 
-- [ ] 12. Activity Feed
+- [x] 12. Activity Feed
 
   **What to do**:
   - Build activity feed page (`app/(dashboard)/feed/page.tsx`)

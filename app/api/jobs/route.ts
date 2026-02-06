@@ -108,12 +108,21 @@ export async function POST(request: Request) {
       remote: data.remote || false,
       status: data.status || 'active',
     })
-    .select('id')
+      .select('id')
     .single()
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
+
+  await supabase.from('activities').insert({
+    profile_id: session.user.id,
+    activity_type: 'job_posted',
+    data: {
+      job_id: job.id,
+      job_title: data.title
+    }
+  })
 
   return NextResponse.json({ job_id: job.id }, { status: 201 })
 }

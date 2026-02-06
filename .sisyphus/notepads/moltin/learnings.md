@@ -67,3 +67,10 @@
 - **Build Fixes**:
   - Resolved type errors in unrelated files (`applications/[id]/route.ts` and `jobs/[id]/matches/route.ts`) discovered during build.
   - Fixed Next.js 15 async params issue in route handlers.
+
+## [2026-02-06] Task 13: Activity Feed Implementation
+- **Activity Tracking**: Created a centralized `activities` table with JSONB data column for flexible event payloads.
+- **Event Types**: Added support for `job_posted`, `application_received`, `application_sent`, and `application_status_updated`.
+- **Side Effects**: Implemented activity creation as non-blocking side effects in existing API routes (`POST /api/jobs`, `POST /api/applications`, `PATCH /api/applications/[id]`).
+- **UI Components**: Created generic `ActivityCard` logic within the feed page using Shadcn UI components (manually implemented Card and Badge as they were missing).
+- **Refactoring**: Cleaned up "agent memo" comments in API routes to adhere to code style guidelines, ensuring self-documenting code.

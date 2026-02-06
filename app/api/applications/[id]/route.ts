@@ -59,6 +59,22 @@ export async function PATCH(
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
+  const { data: job } = await supabase
+    .from('job_postings')
+    .select('title')
+    .eq('id', updated.job_id)
+    .single()
+
+  await supabase.from('activities').insert({
+    profile_id: typedApp.candidate_profile_id,
+    activity_type: 'application_status_updated',
+    data: {
+      job_id: updated.job_id,
+      job_title: job?.title || 'Unknown Job',
+      status: status
+    }
+  })
+
   return NextResponse.json(updated)
 }
 
