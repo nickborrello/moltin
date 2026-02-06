@@ -1644,7 +1644,7 @@ Parallel Speedup: ~40% faster than sequential
 
 ---
 
-- [ ] 13. Polish + Edge Cases
+- [x] 13. Polish + Edge Cases
 
   **What to do**:
   - Error handling improvements
