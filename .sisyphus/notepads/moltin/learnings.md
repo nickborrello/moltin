@@ -74,3 +74,38 @@
 - **Side Effects**: Implemented activity creation as non-blocking side effects in existing API routes (`POST /api/jobs`, `POST /api/applications`, `PATCH /api/applications/[id]`).
 - **UI Components**: Created generic `ActivityCard` logic within the feed page using Shadcn UI components (manually implemented Card and Badge as they were missing).
 - **Refactoring**: Cleaned up "agent memo" comments in API routes to adhere to code style guidelines, ensuring self-documenting code.
+
+## Null Safety Pattern for Supabase Queries
+
+**Problem:** Destructuring `data` directly from Supabase query can fail if result is null.
+
+**Bad Pattern:**
+```typescript
+const { data: job } = await supabase.from('job_postings').select('title').single()
+// TypeError if query returns null
+```
+
+**Good Pattern:**
+```typescript
+const jobResult = await supabase.from('job_postings').select('title').single()
+const job = jobResult?.data
+// Safely handles null case with optional chaining
+```
+
+**Applied in:** app/api/applications/[id]/route.ts lines 66-71
+**Verified by:** All 13 tests in applications.test.ts passing
+
+## [2026-02-06] Matching SQL Functions Migration
+- Added migration `supabase/migrations/20260206004220_matching_functions.sql` with:
+  - `match_candidates_to_job(job_id UUID, match_limit INT DEFAULT 10)`
+  - `match_jobs_to_candidate(candidate_id UUID, match_limit INT DEFAULT 10)`
+- Matching uses pgvector cosine distance operator `<=>` and converts to percentage with `(1 - distance) * 100`.
+- `match_score` is clamped to `0..100` with `GREATEST/LEAST`, rounded to 2 decimals, and returned as `DECIMAL(5,2)`.
+- Guardrails applied:
+  - Returns no rows if target embedding is NULL.
+  - Candidate matching filters `profiles.profile_type = 'candidate'`.
+  - Job matching filters `job_postings.status = 'active'`.
+  - Both queries skip rows with NULL embeddings.
+- Function signatures and return columns are aligned with existing API `supabase.rpc()` usage in:
+  - `app/api/jobs/[id]/matches/route.ts`
+  - `app/api/matches/jobs/route.ts`
