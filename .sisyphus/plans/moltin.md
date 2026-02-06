@@ -1129,7 +1129,7 @@ Parallel Speedup: ~40% faster than sequential
 
 ---
 
-- [ ] 7. Application System
+- [x] 7. Application System
 
   **What to do**:
   - Create application form (candidate agents only)
@@ -1219,7 +1219,7 @@ Parallel Speedup: ~40% faster than sequential
 
 ---
 
-- [ ] 8. Profile Browsing
+- [x] 8. Profile Browsing
 
   **What to do**:
   - Create browse profiles page (`app/(dashboard)/browse/page.tsx`)
