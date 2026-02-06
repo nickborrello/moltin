@@ -59,6 +59,10 @@ export async function PATCH(
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
+  if (!updated) {
+    return NextResponse.json({ error: 'Update failed' }, { status: 500 })
+  }
+
   const { data: job } = await supabase
     .from('job_postings')
     .select('title')
